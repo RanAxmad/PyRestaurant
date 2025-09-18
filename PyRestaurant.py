@@ -190,6 +190,11 @@ class RestaurantApp(QMainWindow):
         self.status_combo.addItems(["Preparing", "In Service", "Completed"])
         layout.addWidget(QLabel("New Status:"))
         layout.addWidget(self.status_combo)
+        self.delete_order_button = QPushButton("Delete Order")
+        self.delete_order_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_TrashIcon))
+        self.delete_order_button.setToolTip("Delete the selected order")
+        self.delete_order_button.clicked.connect(self.delete_order)
+        layout.addWidget(self.delete_order_button)
         return widget
 
     def create_menu_tab(self):
@@ -329,6 +334,20 @@ class RestaurantApp(QMainWindow):
             self.conn.commit()
             self.load_orders()
             QMessageBox.information(self, "Update", f"Status updated to {new_status}")
+        else:
+            QMessageBox.warning(self, "Warning", "Please select an order!")
+
+    def delete_order(self):
+        selected_order = self.orders_list.currentItem()
+        if selected_order:
+            order_id = int(selected_order.text().split(", ")[0].split(": ")[1])
+            reply = QMessageBox.question(self, "Delete Order", f"Are you sure you want to delete order {order_id}?", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+            if reply == QMessageBox.StandardButton.Yes:
+                cursor = self.conn.cursor()
+                cursor.execute("DELETE FROM orders WHERE id = ?", (order_id,))
+                self.conn.commit()
+                self.load_orders()
+                QMessageBox.information(self, "Success", "Order deleted!")
         else:
             QMessageBox.warning(self, "Warning", "Please select an order!")
 
