@@ -45,7 +45,7 @@ class RestaurantApp(QMainWindow):
         self.interface_combo.addItems(["Customer", "Staff/Manager"])
         self.interface_combo.setCurrentIndex(-1)
         self.interface_combo.currentTextChanged.connect(self.switch_interface)
-        self.interface_combo.setStyleSheet("font-size: 19px; font-weight: bold;")
+        self.interface_combo.setStyleSheet("font-size: 25px; font-weight: bold;")
         self.layout.addWidget(self.interface_combo)
 
         self.customer_widget = QWidget()
@@ -55,6 +55,7 @@ class RestaurantApp(QMainWindow):
         self.customer_layout.addWidget(self.menu_list)
         self.quantity_spin = QSpinBox()
         self.quantity_spin.setMinimum(1)
+        self.quantity_spin.setStyleSheet("font-size: 25px; font-weight: bold;")
         self.customer_layout.addWidget(QLabel("Quantity:"))
         self.customer_layout.addWidget(self.quantity_spin)
         self.order_button = QPushButton("Place Order")
@@ -223,6 +224,7 @@ class RestaurantApp(QMainWindow):
         self.status_combo.setStyleSheet("font-size: 20px;")
         layout.addWidget(QLabel("New Status:"))
         layout.addWidget(self.status_combo)
+        self.status_combo.setStyleSheet("font-size: 25px; font-weight: bold;")
         self.delete_order_button = QPushButton("Delete Order")
         self.delete_order_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_TrashIcon))
         self.delete_order_button.setToolTip("Delete the selected order")
@@ -361,7 +363,6 @@ class RestaurantApp(QMainWindow):
                 cursor.execute("SELECT orders.id, menu.name, orders.quantity, orders.status FROM orders JOIN menu ON orders.menu_id = menu.id ORDER BY orders.id DESC")
                 orders = cursor.fetchall()
                 self.orders_list.clear()
-                # Use batch processing for large datasets
                 for i in range(0, len(orders), 100):
                     batch = orders[i:i+100]
                     for order in batch:
