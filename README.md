@@ -8,9 +8,9 @@ Language: English | Default currency: €
 ## 📸 Screenshots
 
 <p float="left">
-  <img src="images/screenshot1.png" width="300" />
-  <img src="images/screenshot2.png" width="300" />
-  <img src="images/screenshot3.png" width="300" />
+  <img src="images/screenshot1.png" width="500" />
+  <img src="images/screenshot2.png" width="500" />
+  <img src="images/screenshot3.png" width="500" />
 </p>
 
 ---
