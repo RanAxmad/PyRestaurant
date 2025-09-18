@@ -24,10 +24,14 @@ def create_tables(conn):
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 menu_id INTEGER NOT NULL,
                 quantity INTEGER NOT NULL,
-                status TEXT NOT NULL DEFAULT 'Hazırlanıyor',
+                status TEXT NOT NULL DEFAULT 'Preparing',
                 FOREIGN KEY (menu_id) REFERENCES menu (id)
             )
         ''')
+        # Performans için indeksler ekle
+        cursor.execute('CREATE INDEX IF NOT EXISTS idx_menu_name ON menu (name)')
+        cursor.execute('CREATE INDEX IF NOT EXISTS idx_orders_menu_id ON orders (menu_id)')
+        cursor.execute('CREATE INDEX IF NOT EXISTS idx_orders_status ON orders (status)')
         conn.commit()
     except sqlite3.Error as e:
         print(e)

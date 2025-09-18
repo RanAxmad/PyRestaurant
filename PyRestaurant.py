@@ -142,17 +142,25 @@ class RestaurantApp(QMainWindow):
             self.load_orders()
 
     def load_menu(self):
-        if self.conn:
-            cursor = self.conn.cursor()
-            cursor.execute("SELECT name, price FROM menu")
-            items = cursor.fetchall()
-            self.menu_list.clear()
-            for item in items:
-                self.menu_list.addItem(f"{item[0]} - {item[1]} TL")
-            if hasattr(self, 'staff_menu_list'):
-                self.staff_menu_list.clear()
-                for item in items:
-                    self.staff_menu_list.addItem(f"{item[0]} - {item[1]} TL")
+        try:
+            if self.conn:
+                cursor = self.conn.cursor()
+                cursor.execute("SELECT name, price FROM menu ORDER BY name")
+                items = cursor.fetchall()
+                self.menu_list.clear()
+                # Use batch processing for large datasets
+                for i in range(0, len(items), 100):
+                    batch = items[i:i+100]
+                    for item in batch:
+                        self.menu_list.addItem(f"{item[0]} - {item[1]} EUR")
+                if hasattr(self, 'staff_menu_list'):
+                    self.staff_menu_list.clear()
+                    for i in range(0, len(items), 100):
+                        batch = items[i:i+100]
+                        for item in batch:
+                            self.staff_menu_list.addItem(f"{item[0]} - {item[1]} EUR")
+        except Exception as e:
+            QMessageBox.critical(self, "Database Error", f"Failed to load menu: {str(e)}")
 
     def place_order(self):
         selected_item = self.menu_list.currentItem()
@@ -193,13 +201,19 @@ class RestaurantApp(QMainWindow):
             QMessageBox.warning(self, "Warning", "Please select a dish!")
 
     def load_orders(self):
-        if self.conn:
-            cursor = self.conn.cursor()
-            cursor.execute("SELECT id, menu_id, quantity, status FROM orders")
-            orders = cursor.fetchall()
-            self.orders_list.clear()
-            for order in orders:
-                self.orders_list.addItem(f"Order ID: {order[0]}, Status: {order[3]}")
+        try:
+            if self.conn:
+                cursor = self.conn.cursor()
+                cursor.execute("SELECT orders.id, menu.name, orders.quantity, orders.status FROM orders JOIN menu ON orders.menu_id = menu.id ORDER BY orders.id DESC")
+                orders = cursor.fetchall()
+                self.orders_list.clear()
+                # Use batch processing for large datasets
+                for i in range(0, len(orders), 100):
+                    batch = orders[i:i+100]
+                    for order in batch:
+                        self.orders_list.addItem(f"Order ID: {order[0]}, Item: {order[1]}, Qty: {order[2]}, Status: {order[3]}")
+        except Exception as e:
+            QMessageBox.critical(self, "Database Error", f"Failed to load orders: {str(e)}")
 
     def update_order_status(self):
         selected_order = self.orders_list.currentItem()
