@@ -98,4 +98,4 @@ pip install pyqt6 matplotlib reportlab
 
 ## 📌 Author
 
-**ahmetcakir-dev** - [GitHub](https://github.com/ahmetcakir-dev)
+**ahmetcakir-dev** | [GitHub](https://github.com/ahmetcakir-dev)
