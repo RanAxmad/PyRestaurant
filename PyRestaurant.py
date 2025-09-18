@@ -144,14 +144,20 @@ class RestaurantApp(QMainWindow):
             orders = cursor.fetchall()
             self.orders_list.clear()
             for order in orders:
-                self.orders_list.addItem(f"Sipariş ID: {order[0]}, Durum: {order[3]}")
+                self.orders_list.addItem(f"Order ID: {order[0]}, Status: {order[3]}")
 
     def update_order_status(self):
         selected_order = self.orders_list.currentItem()
         if selected_order:
-            QMessageBox.information(self, "Güncelleme", f"Durum güncellendi: {selected_order.text()}")
+            order_id = int(selected_order.text().split(", ")[0].split(": ")[1])
+            new_status = self.status_combo.currentText()
+            cursor = self.conn.cursor()
+            cursor.execute("UPDATE orders SET status = ? WHERE id = ?", (new_status, order_id))
+            self.conn.commit()
+            self.load_orders()
+            QMessageBox.information(self, "Update", f"Status updated to {new_status}")
         else:
-            QMessageBox.warning(self, "Uyarı", "Lütfen bir sipariş seçin!")
+            QMessageBox.warning(self, "Warning", "Please select an order!")
 
     def select_menu_item(self, item):
         name = item.text().split(" - ")[0]
