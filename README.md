@@ -1,16 +1,15 @@
 # PyRestaurant 🍽️
 
 **Restaurant order management system built with Python, PyQt6, and SQLite.**  
-Language: English | Default currency: €
 
 ---
 
 ## 📸 Screenshots
 
 <p float="left">
-  <img src="images/screenshot1.png" width="500" />
-  <img src="images/screenshot2.png" width="500" />
-  <img src="images/screenshot3.png" width="500" />
+  <img src="images/screenshot1.png" width="650" />
+  <img src="images/screenshot2.png" width="650" />
+  <img src="images/screenshot3.png" width="650" />
 </p>
 
 ---
