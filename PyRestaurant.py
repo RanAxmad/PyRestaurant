@@ -20,16 +20,16 @@ class RestaurantApp(QMainWindow):
         self.layout = QVBoxLayout(self.central_widget)
 
         # Başlık
-        self.title_label = QLabel("PyRestaurant'a Hoş Geldiniz!")
+        self.title_label = QLabel("Welcome to PyRestaurant!")
         self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.layout.addWidget(self.title_label)
 
         # Arayüz seçimi
-        self.interface_label = QLabel("Arayüz Seçin:")
+        self.interface_label = QLabel("Select Interface:")
         self.layout.addWidget(self.interface_label)
 
         self.interface_combo = QComboBox()
-        self.interface_combo.addItems(["Müşteri", "Personel/Yönetici"])
+        self.interface_combo.addItems(["Customer", "Staff/Manager"])
         self.interface_combo.currentTextChanged.connect(self.switch_interface)
         self.layout.addWidget(self.interface_combo)
 
@@ -37,9 +37,9 @@ class RestaurantApp(QMainWindow):
         self.customer_widget = QWidget()
         self.customer_layout = QVBoxLayout(self.customer_widget)
         self.menu_list = QListWidget()
-        self.customer_layout.addWidget(QLabel("Menü:"))
+        self.customer_layout.addWidget(QLabel("Menu:"))
         self.customer_layout.addWidget(self.menu_list)
-        self.order_button = QPushButton("Sipariş Ver")
+        self.order_button = QPushButton("Place Order")
         self.order_button.clicked.connect(self.place_order)
         self.customer_layout.addWidget(self.order_button)
         self.customer_widget.setVisible(False)
