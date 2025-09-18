@@ -28,15 +28,22 @@ class RestaurantApp(QMainWindow):
         title_layout.addWidget(icon_label)
         self.title_label = QLabel("Welcome to PyRestaurant!")
         self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.title_label.setStyleSheet("font-size: 24px; font-weight: bold;")
         title_layout.addWidget(self.title_label)
         title_layout.addStretch()
         self.layout.addLayout(title_layout)
+
+        self.description_label = QLabel("Welcome to PyRestaurant Management System.\nPlease select your interface to continue.")
+        self.description_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.description_label.setStyleSheet("font-size: 18px; color: #1b5e20; margin: 20px;")
+        self.layout.addWidget(self.description_label)
 
         self.interface_label = QLabel("Select Interface:")
         self.layout.addWidget(self.interface_label)
 
         self.interface_combo = QComboBox()
         self.interface_combo.addItems(["Customer", "Staff/Manager"])
+        self.interface_combo.setCurrentIndex(-1)
         self.interface_combo.currentTextChanged.connect(self.switch_interface)
         self.layout.addWidget(self.interface_combo)
 
@@ -78,7 +85,7 @@ class RestaurantApp(QMainWindow):
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
             QLabel {
-                font-size: 16px;
+                font-size: 20px;
                 color: #1b5e20;
                 font-weight: 600;
             }
@@ -128,6 +135,26 @@ class RestaurantApp(QMainWindow):
                 border-color: #1b5e20;
                 box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
             }
+            QComboBox::drop-down {
+                border: none;
+                background-color: #4caf50;
+                width: 20px;
+            }
+            QComboBox::down-arrow {
+                color: white;
+                width: 10px;
+                height: 10px;
+            }
+            QSpinBox::up-button, QSpinBox::down-button {
+                background-color: #4caf50;
+                border: none;
+                width: 20px;
+            }
+            QSpinBox::up-arrow, QSpinBox::down-arrow {
+                color: white;
+                width: 8px;
+                height: 8px;
+            }
             QTabWidget::pane {
                 border: 2px solid #4caf50;
                 border-radius: 10px;
@@ -170,7 +197,6 @@ class RestaurantApp(QMainWindow):
         <p><b>Version:</b> 1.0.0</p>
         <p><b>Developed by:</b> ahmetcakir-dev</p>
         <p>This application is designed to manage restaurant orders, menu items, and sales reports efficiently.</p>
-        <p>For support, contact: support@pyrestaurant.com</p>
         """
         QMessageBox.about(self, "About PyRestaurant", about_text)
 
@@ -254,10 +280,16 @@ class RestaurantApp(QMainWindow):
         if interface == "Customer":
             self.customer_widget.setVisible(True)
             self.staff_widget.setVisible(False)
+            self.description_label.setVisible(False)
         elif interface == "Staff/Manager":
             self.customer_widget.setVisible(False)
             self.staff_widget.setVisible(True)
+            self.description_label.setVisible(False)
             self.load_orders()
+        else:
+            self.customer_widget.setVisible(False)
+            self.staff_widget.setVisible(False)
+            self.description_label.setVisible(True)
 
     def load_menu(self):
         try:
