@@ -102,13 +102,40 @@ class RestaurantApp(QMainWindow):
             self.menu_list.clear()
             for item in items:
                 self.menu_list.addItem(f"{item[0]} - {item[1]} TL")
+            if hasattr(self, 'staff_menu_list'):
+                self.staff_menu_list.clear()
+                for item in items:
+                    self.staff_menu_list.addItem(f"{item[0]} - {item[1]} TL")
 
     def place_order(self):
         selected_item = self.menu_list.currentItem()
         if selected_item:
-            QMessageBox.information(self, "Sipariş", f"Sipariş verildi: {selected_item.text()}")
+            quantity = self.quantity_spin.value()
+            name = selected_item.text().split(" - ")[0]
+            cursor = self.conn.cursor()
+            cursor.execute("SELECT id, price FROM menu WHERE name = ?", (name,))
+            item = cursor.fetchone()
+            if item:
+                menu_id, price = item
+                total = quantity * price
+                cursor.execute("INSERT INTO orders (menu_id, quantity) VALUES (?, ?)", (menu_id, quantity))
+                self.conn.commit()
+                QMessageBox.information(self, "Order", f"Order placed for {quantity} x {name}. Total: {total} TL")
+                self.load_orders()
+                try:
+                    from reportlab.pdfgen import canvas
+                    c = canvas.Canvas("receipt.pdf")
+                    c.drawString(100, 750, "Receipt")
+                    c.drawString(100, 730, f"Order: {quantity} x {name}")
+                    c.drawString(100, 710, f"Total: {total} TL")
+                    c.save()
+                    QMessageBox.information(self, "Receipt", "PDF generated as receipt.pdf")
+                except ImportError:
+                    pass
+            else:
+                QMessageBox.warning(self, "Error", "Item not found!")
         else:
-            QMessageBox.warning(self, "Uyarı", "Lütfen bir yemek seçin!")
+            QMessageBox.warning(self, "Warning", "Please select a dish!")
 
     def load_orders(self):
         if self.conn:
