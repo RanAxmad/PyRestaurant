@@ -1,7 +1,6 @@
 import sqlite3
 
 def create_connection(db_file):
-    """ SQLite veritabanı bağlantısı oluşturur """
     conn = None
     try:
         conn = sqlite3.connect(db_file)
@@ -11,7 +10,6 @@ def create_connection(db_file):
     return conn
 
 def create_tables(conn):
-    """ Menü ve sipariş tablolarını oluşturur """
     try:
         cursor = conn.cursor()
         cursor.execute('''

@@ -120,18 +120,26 @@ class RestaurantApp(QMainWindow):
                 total = quantity * price
                 cursor.execute("INSERT INTO orders (menu_id, quantity) VALUES (?, ?)", (menu_id, quantity))
                 self.conn.commit()
+                order_id = cursor.lastrowid
                 QMessageBox.information(self, "Order", f"Order placed for {quantity} x {name}. Total: {total} TL")
                 self.load_orders()
                 try:
                     from reportlab.pdfgen import canvas
-                    c = canvas.Canvas("receipt.pdf")
-                    c.drawString(100, 750, "Receipt")
-                    c.drawString(100, 730, f"Order: {quantity} x {name}")
-                    c.drawString(100, 710, f"Total: {total} TL")
+                    from datetime import datetime
+                    filename = f"receipt_{order_id}.pdf"
+                    c = canvas.Canvas(filename)
+                    c.drawString(100, 750, "PyRestaurant Receipt")
+                    c.drawString(100, 730, f"Order ID: {order_id}")
+                    c.drawString(100, 710, f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+                    c.drawString(100, 690, f"Item: {name}")
+                    c.drawString(100, 670, f"Quantity: {quantity}")
+                    c.drawString(100, 650, f"Price per item: {price} TL")
+                    c.drawString(100, 630, f"Total: {total} TL")
+                    c.drawString(100, 600, "Thank you for your order!")
                     c.save()
-                    QMessageBox.information(self, "Receipt", "PDF generated as receipt.pdf")
+                    QMessageBox.information(self, "Receipt", f"PDF generated as {filename}")
                 except ImportError:
-                    pass
+                    QMessageBox.warning(self, "Receipt", "ReportLab not installed, PDF not generated.")
             else:
                 QMessageBox.warning(self, "Error", "Item not found!")
         else:
