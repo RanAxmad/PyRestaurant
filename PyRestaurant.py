@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QListWidget, QLineEdit, QComboBox, QMessageBox, QSpinBox, QStyle
+from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QListWidget, QLineEdit, QComboBox, QMessageBox, QSpinBox, QStyle, QTabWidget, QHBoxLayout
 from PyQt6.QtCore import Qt
 import database
 
@@ -47,39 +47,11 @@ class RestaurantApp(QMainWindow):
 
         self.staff_widget = QWidget()
         self.staff_layout = QVBoxLayout(self.staff_widget)
-        self.orders_list = QListWidget()
-        self.staff_layout.addWidget(QLabel("Orders:"))
-        self.staff_layout.addWidget(self.orders_list)
-        self.update_status_button = QPushButton("Update Status")
-        self.update_status_button.clicked.connect(self.update_order_status)
-        self.staff_layout.addWidget(self.update_status_button)
-        self.status_combo = QComboBox()
-        self.status_combo.addItems(["Preparing", "In Service", "Completed"])
-        self.staff_layout.addWidget(QLabel("New Status:"))
-        self.staff_layout.addWidget(self.status_combo)
-        self.staff_menu_list = QListWidget()
-        self.staff_layout.addWidget(QLabel("Current Menu:"))
-        self.staff_layout.addWidget(self.staff_menu_list)
-        self.staff_menu_list.itemClicked.connect(self.select_menu_item)
-        self.staff_layout.addWidget(QLabel("Menu Management:"))
-        self.name_input = QLineEdit()
-        self.staff_layout.addWidget(QLabel("Item Name:"))
-        self.staff_layout.addWidget(self.name_input)
-        self.price_input = QLineEdit()
-        self.staff_layout.addWidget(QLabel("Price:"))
-        self.staff_layout.addWidget(self.price_input)
-        self.add_button = QPushButton("Add Item")
-        self.add_button.clicked.connect(self.add_menu_item)
-        self.staff_layout.addWidget(self.add_button)
-        self.edit_button = QPushButton("Edit Item")
-        self.edit_button.clicked.connect(self.edit_menu_item)
-        self.staff_layout.addWidget(self.edit_button)
-        self.delete_button = QPushButton("Delete Item")
-        self.delete_button.clicked.connect(self.delete_menu_item)
-        self.staff_layout.addWidget(self.delete_button)
-        self.view_reports_button = QPushButton("View Reports")
-        self.view_reports_button.clicked.connect(self.view_reports)
-        self.staff_layout.addWidget(self.view_reports_button)
+        self.tab_widget = QTabWidget()
+        self.tab_widget.addTab(self.create_orders_tab(), "Orders")
+        self.tab_widget.addTab(self.create_menu_tab(), "Menu Management")
+        self.tab_widget.addTab(self.create_reports_tab(), "Reports")
+        self.staff_layout.addWidget(self.tab_widget)
         self.staff_widget.setVisible(False)
         self.layout.addWidget(self.staff_widget)
 
