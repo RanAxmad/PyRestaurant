@@ -45,6 +45,7 @@ class RestaurantApp(QMainWindow):
         self.interface_combo.addItems(["Customer", "Staff/Manager"])
         self.interface_combo.setCurrentIndex(-1)
         self.interface_combo.currentTextChanged.connect(self.switch_interface)
+        self.interface_combo.setStyleSheet("font-size: 19px; font-weight: bold;")
         self.layout.addWidget(self.interface_combo)
 
         self.customer_widget = QWidget()
@@ -111,12 +112,13 @@ class RestaurantApp(QMainWindow):
                 border: 2px solid #4caf50;
                 border-radius: 10px;
                 padding: 10px;
-                font-size: 14px;
+                font-size: 25px;
             }
             QListWidget::item {
                 padding: 8px;
                 border-bottom: 1px solid #e8f5e8;
                 color: black;
+                font-size: 25px;
             }
             QListWidget::item:selected {
                 background-color: #c8e6c9;
@@ -217,7 +219,8 @@ class RestaurantApp(QMainWindow):
         self.update_status_button.clicked.connect(self.update_order_status)
         layout.addWidget(self.update_status_button)
         self.status_combo = QComboBox()
-        self.status_combo.addItems(["Preparing", "In Service", "Completed"])
+        self.status_combo.addItems(["Preparing", "Ready", "Completed"])
+        self.status_combo.setStyleSheet("font-size: 20px;")
         layout.addWidget(QLabel("New Status:"))
         layout.addWidget(self.status_combo)
         self.delete_order_button = QPushButton("Delete Order")
@@ -241,9 +244,11 @@ class RestaurantApp(QMainWindow):
         self.staff_menu_list.itemClicked.connect(self.select_menu_item)
         layout.addWidget(QLabel("Menu Management:"))
         self.name_input = QLineEdit()
+        self.name_input.setStyleSheet("font-size: 25px;")
         layout.addWidget(QLabel("Item Name:"))
         layout.addWidget(self.name_input)
         self.price_input = QLineEdit()
+        self.price_input.setStyleSheet("font-size: 25px;")
         layout.addWidget(QLabel("Price:"))
         layout.addWidget(self.price_input)
         button_layout = QHBoxLayout()
@@ -325,7 +330,7 @@ class RestaurantApp(QMainWindow):
                 cursor.execute("INSERT INTO orders (menu_id, quantity) VALUES (?, ?)", (menu_id, quantity))
                 self.conn.commit()
                 order_id = cursor.lastrowid
-                QMessageBox.information(self, "Order", f"Order placed for {quantity} x {name}. Total: {total} TL")
+                QMessageBox.information(self, "Order", f"Order placed for {quantity} x {name}. Total: {total} €")
                 self.load_orders()
                 try:
                     from reportlab.pdfgen import canvas
@@ -337,8 +342,8 @@ class RestaurantApp(QMainWindow):
                     c.drawString(100, 710, f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
                     c.drawString(100, 690, f"Item: {name}")
                     c.drawString(100, 670, f"Quantity: {quantity}")
-                    c.drawString(100, 650, f"Price per item: {price} TL")
-                    c.drawString(100, 630, f"Total: {total} TL")
+                    c.drawString(100, 650, f"Price per item: {price} €")
+                    c.drawString(100, 630, f"Total: {total} €")
                     c.drawString(100, 600, "Thank you for your order!")
                     c.save()
                     QMessageBox.information(self, "Receipt", f"PDF generated as {filename}")
@@ -399,7 +404,7 @@ class RestaurantApp(QMainWindow):
         if result:
             self.selected_menu_id = result[0]
             self.name_input.setText(name)
-            price = item.text().split(" - ")[1].replace(" TL", "")
+            price = item.text().split(" - ")[1].replace(" €", "")
             self.price_input.setText(price)
 
     def add_menu_item(self):
@@ -475,5 +480,5 @@ class RestaurantApp(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = RestaurantApp()
-    window.show()
+    window.showMaximized()
     sys.exit(app.exec())
