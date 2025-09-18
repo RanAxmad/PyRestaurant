@@ -153,6 +153,87 @@ class RestaurantApp(QMainWindow):
         else:
             QMessageBox.warning(self, "Uyarı", "Lütfen bir sipariş seçin!")
 
+    def select_menu_item(self, item):
+        name = item.text().split(" - ")[0]
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT id FROM menu WHERE name = ?", (name,))
+        result = cursor.fetchone()
+        if result:
+            self.selected_menu_id = result[0]
+            self.name_input.setText(name)
+            price = item.text().split(" - ")[1].replace(" TL", "")
+            self.price_input.setText(price)
+
+    def add_menu_item(self):
+        name = self.name_input.text()
+        price = self.price_input.text()
+        if name and price:
+            try:
+                cursor = self.conn.cursor()
+                cursor.execute("INSERT INTO menu (name, price) VALUES (?, ?)", (name, float(price)))
+                self.conn.commit()
+                self.load_menu()
+                self.name_input.clear()
+                self.price_input.clear()
+                QMessageBox.information(self, "Success", "Item added to menu!")
+            except ValueError:
+                QMessageBox.warning(self, "Error", "Invalid price!")
+        else:
+            QMessageBox.warning(self, "Warning", "Enter name and price!")
+
+    def edit_menu_item(self):
+        if self.selected_menu_id is None:
+            QMessageBox.warning(self, "Warning", "Select an item to edit!")
+            return
+        name = self.name_input.text()
+        price = self.price_input.text()
+        if name and price:
+            try:
+                cursor = self.conn.cursor()
+                cursor.execute("UPDATE menu SET name = ?, price = ? WHERE id = ?", (name, float(price), self.selected_menu_id))
+                self.conn.commit()
+                self.load_menu()
+                self.name_input.clear()
+                self.price_input.clear()
+                self.selected_menu_id = None
+                QMessageBox.information(self, "Success", "Item updated!")
+            except ValueError:
+                QMessageBox.warning(self, "Error", "Invalid price!")
+        else:
+            QMessageBox.warning(self, "Warning", "Enter name and price!")
+
+    def delete_menu_item(self):
+        if self.selected_menu_id is None:
+            QMessageBox.warning(self, "Warning", "Select an item to delete!")
+            return
+        cursor = self.conn.cursor()
+        cursor.execute("DELETE FROM menu WHERE id = ?", (self.selected_menu_id,))
+        self.conn.commit()
+        self.load_menu()
+        self.name_input.clear()
+        self.price_input.clear()
+        self.selected_menu_id = None
+        QMessageBox.information(self, "Success", "Item deleted!")
+
+    def view_reports(self):
+        try:
+            import matplotlib.pyplot as plt
+            cursor = self.conn.cursor()
+            cursor.execute("SELECT menu.name, SUM(orders.quantity) FROM orders JOIN menu ON orders.menu_id = menu.id GROUP BY menu.id")
+            data = cursor.fetchall()
+            if data:
+                names = [row[0] for row in data]
+                quantities = [row[1] for row in data]
+                plt.bar(names, quantities)
+                plt.title("Sales Report")
+                plt.xlabel("Items")
+                plt.ylabel("Quantity Sold")
+                plt.show()
+            else:
+                QMessageBox.information(self, "Reports", "No orders yet!")
+        except ImportError:
+            QMessageBox.warning(self, "Error", "Matplotlib not installed!")
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = RestaurantApp()
