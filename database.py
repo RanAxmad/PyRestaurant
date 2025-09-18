@@ -28,7 +28,6 @@ def create_tables(conn):
                 FOREIGN KEY (menu_id) REFERENCES menu (id)
             )
         ''')
-        # Performans için indeksler ekle
         cursor.execute('CREATE INDEX IF NOT EXISTS idx_menu_name ON menu (name)')
         cursor.execute('CREATE INDEX IF NOT EXISTS idx_orders_menu_id ON orders (menu_id)')
         cursor.execute('CREATE INDEX IF NOT EXISTS idx_orders_status ON orders (status)')

@@ -118,6 +118,7 @@ class RestaurantApp(QMainWindow):
                 border: 2px solid #4caf50;
                 border-radius: 8px;
                 background-color: white;
+                color: black;
                 font-size: 14px;
             }
             QLineEdit:focus, QComboBox:focus, QSpinBox:focus {
@@ -201,6 +202,11 @@ class RestaurantApp(QMainWindow):
         widget = QWidget()
         layout = QVBoxLayout(widget)
         self.staff_menu_list = QListWidget()
+        self.staff_menu_list.setStyleSheet("""
+            QListWidget::item {
+                color: black;
+            }
+        """)
         layout.addWidget(QLabel("Current Menu:"))
         layout.addWidget(self.staff_menu_list)
         self.staff_menu_list.itemClicked.connect(self.select_menu_item)
@@ -261,7 +267,7 @@ class RestaurantApp(QMainWindow):
                 for i in range(0, len(items), 100):
                     batch = items[i:i+100]
                     for item in batch:
-                        self.menu_list.addItem(f"{item[0]} - {item[1]} EUR")
+                        self.menu_list.addItem(f"{item[0]} - {item[1]} EUR (€)")
                 if hasattr(self, 'staff_menu_list'):
                     self.staff_menu_list.clear()
                     for i in range(0, len(items), 100):
