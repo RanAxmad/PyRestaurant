@@ -18,9 +18,15 @@ class RestaurantApp(QMainWindow):
         self.setCentralWidget(self.central_widget)
         self.layout = QVBoxLayout(self.central_widget)
 
+        title_layout = QHBoxLayout()
+        icon_label = QLabel()
+        icon_label.setPixmap(self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon).pixmap(32, 32))
+        title_layout.addWidget(icon_label)
         self.title_label = QLabel("Welcome to PyRestaurant!")
         self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.layout.addWidget(self.title_label)
+        title_layout.addWidget(self.title_label)
+        title_layout.addStretch()
+        self.layout.addLayout(title_layout)
 
         self.interface_label = QLabel("Select Interface:")
         self.layout.addWidget(self.interface_label)
@@ -55,7 +61,15 @@ class RestaurantApp(QMainWindow):
         self.staff_widget.setVisible(False)
         self.layout.addWidget(self.staff_widget)
 
+        self.menu_bar = self.menuBar()
+        help_menu = self.menu_bar.addMenu("Help")
+        about_action = help_menu.addAction("About")
+        about_action.triggered.connect(self.show_about)
+
         self.load_menu()
+
+    def show_about(self):
+        QMessageBox.about(self, "About PyRestaurant", "PyRestaurant Management System\nDeveloped by ahmetcakir-dev")
 
     def create_orders_tab(self):
         widget = QWidget()
