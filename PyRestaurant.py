@@ -57,6 +57,67 @@ class RestaurantApp(QMainWindow):
 
         self.load_menu()
 
+    def create_orders_tab(self):
+        widget = QWidget()
+        layout = QVBoxLayout(widget)
+        self.orders_list = QListWidget()
+        layout.addWidget(QLabel("Orders:"))
+        layout.addWidget(self.orders_list)
+        self.update_status_button = QPushButton("Update Status")
+        self.update_status_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_ArrowRight))
+        self.update_status_button.setToolTip("Update the selected order status")
+        self.update_status_button.clicked.connect(self.update_order_status)
+        layout.addWidget(self.update_status_button)
+        self.status_combo = QComboBox()
+        self.status_combo.addItems(["Preparing", "In Service", "Completed"])
+        layout.addWidget(QLabel("New Status:"))
+        layout.addWidget(self.status_combo)
+        return widget
+
+    def create_menu_tab(self):
+        widget = QWidget()
+        layout = QVBoxLayout(widget)
+        self.staff_menu_list = QListWidget()
+        layout.addWidget(QLabel("Current Menu:"))
+        layout.addWidget(self.staff_menu_list)
+        self.staff_menu_list.itemClicked.connect(self.select_menu_item)
+        layout.addWidget(QLabel("Menu Management:"))
+        self.name_input = QLineEdit()
+        layout.addWidget(QLabel("Item Name:"))
+        layout.addWidget(self.name_input)
+        self.price_input = QLineEdit()
+        layout.addWidget(QLabel("Price:"))
+        layout.addWidget(self.price_input)
+        button_layout = QHBoxLayout()
+        self.add_button = QPushButton("Add Item")
+        self.add_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileIcon))
+        self.add_button.setToolTip("Add a new menu item")
+        self.add_button.clicked.connect(self.add_menu_item)
+        button_layout.addWidget(self.add_button)
+        self.edit_button = QPushButton("Edit Item")
+        self.edit_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView))
+        self.edit_button.setToolTip("Edit the selected menu item")
+        self.edit_button.clicked.connect(self.edit_menu_item)
+        button_layout.addWidget(self.edit_button)
+        self.delete_button = QPushButton("Delete Item")
+        self.delete_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_TrashIcon))
+        self.delete_button.setToolTip("Delete the selected menu item")
+        self.delete_button.clicked.connect(self.delete_menu_item)
+        button_layout.addWidget(self.delete_button)
+        layout.addLayout(button_layout)
+        return widget
+
+    def create_reports_tab(self):
+        widget = QWidget()
+        layout = QVBoxLayout(widget)
+        self.view_reports_button = QPushButton("View Reports")
+        self.view_reports_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon))
+        self.view_reports_button.setToolTip("View sales reports")
+        self.view_reports_button.clicked.connect(self.view_reports)
+        layout.addWidget(self.view_reports_button)
+        layout.addStretch()
+        return widget
+
     def switch_interface(self, interface):
         if interface == "Customer":
             self.customer_widget.setVisible(True)
