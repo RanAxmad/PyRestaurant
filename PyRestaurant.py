@@ -1,6 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QPushButton, QListWidget, QLineEdit, QComboBox, QMessageBox, QSpinBox, QStyle, QTabWidget, QHBoxLayout
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
 import database
 
 class RestaurantApp(QMainWindow):
@@ -8,6 +9,7 @@ class RestaurantApp(QMainWindow):
         super().__init__()
         self.setWindowTitle("PyRestaurant Management System")
         self.setGeometry(100, 100, 800, 600)
+        self.setWindowIcon(QIcon("images/restaurant.png"))
 
         self.conn = database.create_connection("restaurant.db")
         if self.conn:
@@ -20,7 +22,9 @@ class RestaurantApp(QMainWindow):
 
         title_layout = QHBoxLayout()
         icon_label = QLabel()
-        icon_label.setPixmap(self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon).pixmap(32, 32))
+        from PyQt6.QtGui import QPixmap
+        pixmap = QPixmap("images/order.png")
+        icon_label.setPixmap(pixmap.scaled(32, 32, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
         title_layout.addWidget(icon_label)
         self.title_label = QLabel("Welcome to PyRestaurant!")
         self.title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -68,7 +72,6 @@ class RestaurantApp(QMainWindow):
 
         self.load_menu()
 
-        # Modern styling with improved fonts, sizes, and aesthetics
         self.setStyleSheet("""
             QMainWindow {
                 background-color: #f1f8e9;
@@ -263,17 +266,16 @@ class RestaurantApp(QMainWindow):
                 cursor.execute("SELECT name, price FROM menu ORDER BY name")
                 items = cursor.fetchall()
                 self.menu_list.clear()
-                # Use batch processing for large datasets
                 for i in range(0, len(items), 100):
                     batch = items[i:i+100]
                     for item in batch:
-                        self.menu_list.addItem(f"{item[0]} - {item[1]} EUR (€)")
+                        self.menu_list.addItem(f"{item[0]} - {item[1]} €")
                 if hasattr(self, 'staff_menu_list'):
                     self.staff_menu_list.clear()
                     for i in range(0, len(items), 100):
                         batch = items[i:i+100]
                         for item in batch:
-                            self.staff_menu_list.addItem(f"{item[0]} - {item[1]} EUR")
+                            self.staff_menu_list.addItem(f"{item[0]} - {item[1]} €")
         except Exception as e:
             QMessageBox.critical(self, "Database Error", f"Failed to load menu: {str(e)}")
 
