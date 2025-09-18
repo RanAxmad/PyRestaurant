@@ -68,13 +68,117 @@ class RestaurantApp(QMainWindow):
 
         self.load_menu()
 
+        # Modern styling with improved fonts, sizes, and aesthetics
+        self.setStyleSheet("""
+            QMainWindow {
+                background-color: #f1f8e9;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            QLabel {
+                font-size: 16px;
+                color: #1b5e20;
+                font-weight: 600;
+            }
+            QPushButton {
+                background-color: #4caf50;
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 10px;
+                font-size: 14px;
+                font-weight: bold;
+                min-width: 100px;
+            }
+            QPushButton:hover {
+                background-color: #388e3c;
+                transform: scale(1.05);
+            }
+            QPushButton:pressed {
+                background-color: #2e7d32;
+            }
+            QListWidget {
+                background-color: white;
+                border: 2px solid #4caf50;
+                border-radius: 10px;
+                padding: 10px;
+                font-size: 14px;
+            }
+            QListWidget::item {
+                padding: 8px;
+                border-bottom: 1px solid #e8f5e8;
+                color: black;
+            }
+            QListWidget::item:selected {
+                background-color: #c8e6c9;
+                color: #1b5e20;
+                font-weight: bold;
+            }
+            QLineEdit, QComboBox, QSpinBox {
+                padding: 10px;
+                border: 2px solid #4caf50;
+                border-radius: 8px;
+                background-color: white;
+                font-size: 14px;
+            }
+            QLineEdit:focus, QComboBox:focus, QSpinBox:focus {
+                border-color: #1b5e20;
+                box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+            }
+            QTabWidget::pane {
+                border: 2px solid #4caf50;
+                border-radius: 10px;
+                background-color: white;
+            }
+            QTabBar::tab {
+                background-color: #e8f5e8;
+                color: #1b5e20;
+                padding: 12px 24px;
+                border: 1px solid #4caf50;
+                border-bottom: none;
+                border-radius: 10px 10px 0 0;
+                font-weight: bold;
+                font-size: 14px;
+            }
+            QTabBar::tab:selected {
+                background-color: white;
+                color: #1b5e20;
+            }
+            QTabBar::tab:hover {
+                background-color: #c8e6c9;
+            }
+            QMenuBar {
+                background-color: #4caf50;
+                color: white;
+                font-size: 14px;
+            }
+            QMenuBar::item {
+                background-color: transparent;
+                padding: 8px 16px;
+            }
+            QMenuBar::item:selected {
+                background-color: #388e3c;
+            }
+        """)
+
     def show_about(self):
-        QMessageBox.about(self, "About PyRestaurant", "PyRestaurant Management System\nDeveloped by ahmetcakir-dev")
+        about_text = """
+        <h2>PyRestaurant Management System</h2>
+        <p><b>Version:</b> 1.0.0</p>
+        <p><b>Developed by:</b> ahmetcakir-dev</p>
+        <p>This application is designed to manage restaurant orders, menu items, and sales reports efficiently.</p>
+        <p>For support, contact: support@pyrestaurant.com</p>
+        """
+        QMessageBox.about(self, "About PyRestaurant", about_text)
 
     def create_orders_tab(self):
         widget = QWidget()
         layout = QVBoxLayout(widget)
         self.orders_list = QListWidget()
+        self.orders_list.setStyleSheet("""
+            QListWidget::item {
+                color: black;
+            }
+        """)
         layout.addWidget(QLabel("Orders:"))
         layout.addWidget(self.orders_list)
         self.update_status_button = QPushButton("Update Status")
